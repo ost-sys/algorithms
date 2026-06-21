@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 int linearSearch1D(vector<int>& arr, int target) {
@@ -21,16 +23,44 @@ pair<int,int> linearSearch2D(vector<vector<int>>& matrix, int target) {
 }
 
 int main() {
-    vector<int> arr = {10, 23, 5, 7, 42, 18};
-    int idx = linearSearch1D(arr, 7);
-    cout << "1D поиск: " << idx << endl;
+    int n;
+    cout << "Введите количество элементов массива: ";
+    cin >> n;
 
-    vector<vector<int>> matrix = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
-    auto [row, col] = linearSearch2D(matrix, 5);
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // f >> n;
+    // vector<int> arr(n);
+    // for (int& x : arr) f >> x;
+    // int target_1d; f >> target_1d;
+    // int rows, cols; f >> rows >> cols;
+    // vector<vector<int>> matrix(rows, vector<int>(cols));
+    // for (auto& row : matrix) for (int& x : row) f >> x;
+    // int target_2d; f >> target_2d;
+
+    vector<int> arr(n);
+    cout << "Введите элементы: ";
+    for (int& x : arr) cin >> x;
+
+    int target_1d;
+    cout << "Введите искомый элемент (1D): ";
+    cin >> target_1d;
+    cout << "1D поиск: " << linearSearch1D(arr, target_1d) << endl;
+
+    int rows, cols;
+    cout << "Введите размеры матрицы (строки столбцы): ";
+    cin >> rows >> cols;
+
+    vector<vector<int>> matrix(rows, vector<int>(cols));
+    cout << "Введите элементы матрицы построчно:" << endl;
+    for (auto& row : matrix)
+        for (int& x : row) cin >> x;
+
+    int target_2d;
+    cout << "Введите искомый элемент (2D): ";
+    cin >> target_2d;
+
+    auto [row, col] = linearSearch2D(matrix, target_2d);
     cout << "2D поиск: (" << row << ", " << col << ")" << endl;
 
     return 0;

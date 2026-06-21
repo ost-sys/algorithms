@@ -1,63 +1,139 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
-vector<int> rabinKarp(const string& text, const string& pattern) {
-    int n = (int)text.size();
-    int m = (int)pattern.size();
-    vector<int> results;
-    if (m > n) return results;
+enum class SlotState { EMPTY, OCCUPIED, DELETED };
 
-    const int BASE = 256;
-    const int MOD  = 101;
+struct Slot {
+    int key;
+    string value;
+    SlotState state = SlotState::EMPTY;
+};
 
-    // h = BASE^(m-1) mod MOD
-    int h = 1;
-    for (int i = 0; i < m - 1; ++i)
-        h = (h * BASE) % MOD;
+class HashTable {
+    int size;
+    vector<Slot> table;
 
-    int patternHash = 0;
-    int windowHash  = 0;
-    for (int i = 0; i < m; ++i) {
-        patternHash = (BASE * patternHash + pattern[i]) % MOD;
-        windowHash  = (BASE * windowHash  + text[i])   % MOD;
-    }
+    int hash(int key) const { return key % size; }
 
-    for (int i = 0; i <= n - m; ++i) {
-        if (windowHash == patternHash) {
-            bool match = true;
-            for (int j = 0; j < m; ++j) {
-                if (text[i + j] != pattern[j]) {
-                    match = false;
-                    break;
-                }
+public:
+    HashTable(int size = 11) : size(size), table(size) {}
+
+    void insert(int key, const string& value) {
+        int start = hash(key);
+        int firstDeleted = -1;
+        for (int i = 0; i < size; ++i) {
+            int idx = (start + i) % size;
+            if (table[idx].state == SlotState::EMPTY) {
+                int pos = (firstDeleted != -1) ? firstDeleted : idx;
+                table[pos] = {key, value, SlotState::OCCUPIED};
+                return;
             }
-            if (match) results.push_back(i);
+            if (table[idx].state == SlotState::DELETED) {
+                if (firstDeleted == -1) firstDeleted = idx;
+            } else if (table[idx].key == key) {
+                table[idx].value = value;
+                return;
+            }
         }
-
-        if (i < n - m) {
-            windowHash = (BASE * (windowHash - (unsigned char)text[i] * h)
-                          + (unsigned char)text[i + m]) % MOD;
-            if (windowHash < 0)
-                windowHash += MOD;
-        }
+        if (firstDeleted != -1)
+            table[firstDeleted] = {key, value, SlotState::OCCUPIED};
     }
 
-    return results;
-}
+    // возвращает true и записывает значение в outValue, если ключ найден
+    bool search(int key, string& outValue) const {
+        int start = hash(key);
+        for (int i = 0; i < size; ++i) {
+            int idx = (start + i) % size;
+            if (table[idx].state == SlotState::EMPTY)
+                return false;
+            if (table[idx].state == SlotState::OCCUPIED &&
+                table[idx].key == key) {
+                outValue = table[idx].value;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool remove(int key) {
+        int start = hash(key);
+        for (int i = 0; i < size; ++i) {
+            int idx = (start + i) % size;
+            if (table[idx].state == SlotState::EMPTY)
+                return false;
+            if (table[idx].state == SlotState::OCCUPIED &&
+                table[idx].key == key) {
+                table[idx].state = SlotState::DELETED;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void display() const {
+        for (int i = 0; i < size; ++i) {
+            if (table[i].state == SlotState::EMPTY)
+                cout << "  [" << i << "] пусто\n";
+            else if (table[i].state == SlotState::DELETED)
+                cout << "  [" << i << "] удалено\n";
+            else
+                cout << "  [" << i << "] ключ=" << table[i].key
+                     << ", значение=" << table[i].value << '\n';
+        }
+    }
+};
 
 int main() {
-    string text    = "ABCABCDABABCDABCDABDE";
-    string pattern = "ABCD";
+    int size;
+    cout << "Введите размер таблицы: ";
+    cin >> size;
+    HashTable ht(size);
 
-    vector<int> result = rabinKarp(text, pattern);
+    // Вариант чтения из файла (пары key value, одна на строку):
+    // #include <fstream>
+    // ifstream fin("input.txt");
+    // int k; string v;
+    // while (fin >> k >> v) ht.insert(k, v);
 
-    cout << "Текст:   " << text    << '\n';
-    cout << "Образец: " << pattern << '\n';
-    cout << "Найдено на позициях: ";
-    for (int pos : result) cout << pos << ' ';
-    cout << '\n';
+    cin.ignore(); // съесть остаток строки после числа
+    cout << "Команды: insert <key> <value> | search <key> | delete <key> | display | exit\n";
+
+    string line;
+    while (true) {
+        cout << "> ";
+        if (!getline(cin, line)) break;
+        istringstream iss(line);
+        string action;
+        iss >> action;
+        if (action.empty()) continue;
+
+        if (action == "insert") {
+            int key; string value;
+            if (iss >> key >> value) ht.insert(key, value);
+        } else if (action == "search") {
+            int key;
+            if (iss >> key) {
+                string value;
+                bool found = ht.search(key, value);
+                cout << "Найдено: " << (found ? value : "не найдено") << '\n';
+            }
+        } else if (action == "delete") {
+            int key;
+            if (iss >> key) {
+                bool ok = ht.remove(key);
+                cout << (ok ? "Удалено" : "Ключ не найден") << '\n';
+            }
+        } else if (action == "display") {
+            ht.display();
+        } else if (action == "exit") {
+            break;
+        } else {
+            cout << "Неизвестная команда\n";
+        }
+    }
     return 0;
 }

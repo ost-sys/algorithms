@@ -1,3 +1,7 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     arr = list(map(int, f.read().split()))
+
 def shell_sort(arr):
     n = len(arr)
     gap = n // 2
@@ -14,5 +18,5 @@ def shell_sort(arr):
 
     return arr
 
-arr = [64, 25, 12, 22, 11, 90, 33]
+arr = list(map(int, input("Введите элементы через пробел: ").split()))
 print(shell_sort(arr))

@@ -1,3 +1,7 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     arr = list(map(int, f.read().split()))
+
 def selection_sort(arr):
     n = len(arr)
     for i in range(n):
@@ -8,5 +12,5 @@ def selection_sort(arr):
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
     return arr
 
-arr = [64, 25, 12, 22, 11]
+arr = list(map(int, input("Введите элементы через пробел: ").split()))
 print(selection_sort(arr))

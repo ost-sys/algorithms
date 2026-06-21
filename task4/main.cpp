@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 void dfs(vector<vector<int>>& graph, int node, vector<bool>& visited) {
@@ -14,17 +16,34 @@ void dfs(vector<vector<int>>& graph, int node, vector<bool>& visited) {
 }
 
 int main() {
-    int n = 5;
-    vector<vector<int>> graph(n);
+    int n, m;
+    cout << "Введите количество вершин и рёбер: ";
+    cin >> n >> m;
 
-    graph[0] = {1, 2};
-    graph[1] = {3};
-    graph[2] = {1};
-    graph[3] = {4};
-    graph[4] = {};
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // f >> n >> m;
+    // vector<vector<int>> graph(n);
+    // for (int i = 0; i < m; i++) {
+    //     int u, v; f >> u >> v;
+    //     graph[u].push_back(v);
+    // }
+    // int start; f >> start;
+
+    vector<vector<int>> graph(n);
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cout << "Введите ребро (u v): ";
+        cin >> u >> v;
+        graph[u].push_back(v);
+    }
+
+    int start;
+    cout << "Начальная вершина: ";
+    cin >> start;
 
     vector<bool> visited(n, false);
-    dfs(graph, 0, visited);
+    dfs(graph, start, visited);
 
     return 0;
 }

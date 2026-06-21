@@ -2,6 +2,8 @@
 #include <vector>
 #include <queue>
 #include <climits>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 typedef pair<int,int> pii;
@@ -32,16 +34,33 @@ vector<int> dijkstra(vector<vector<pii>>& graph, int start, int n) {
 }
 
 int main() {
-    int n = 5;
+    int n, m;
+    cout << "Введите количество вершин и рёбер: ";
+    cin >> n >> m;
+
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // f >> n >> m;
+    // vector<vector<pii>> graph(n);
+    // for (int i = 0; i < m; i++) {
+    //     int u, v, w; f >> u >> v >> w;
+    //     graph[u].push_back({w, v});
+    // }
+    // int start; f >> start;
+
     vector<vector<pii>> graph(n);
+    for (int i = 0; i < m; i++) {
+        int u, v, w;
+        cout << "Введите ребро (u v вес): ";
+        cin >> u >> v >> w;
+        graph[u].push_back({w, v});
+    }
 
-    graph[0] = {{10, 1}, {3, 2}};
-    graph[1] = {{2, 3}};
-    graph[2] = {{4, 1}, {8, 3}};
-    graph[3] = {{5, 4}};
-    graph[4] = {};
+    int start;
+    cout << "Начальная вершина: ";
+    cin >> start;
 
-    vector<int> distances = dijkstra(graph, 0, n);
+    vector<int> distances = dijkstra(graph, start, n);
     for (int i = 0; i < n; i++)
         cout << "До вершины " << i << ": " << distances[i] << endl;
 

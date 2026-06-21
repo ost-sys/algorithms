@@ -1,3 +1,12 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     lines = f.read().splitlines()
+#     n, m = map(int, lines[0].split())
+#     graph = {i: [] for i in range(n)}
+#     for line in lines[1:m+1]:
+#         u, v = map(int, line.split())
+#         graph[u].append(v)
+
 def find_universal_source(graph, n):
     def dfs(start):
         visited = set()
@@ -18,15 +27,12 @@ def find_universal_source(graph, n):
 
     return -1
 
-graph = {
-    0: [1, 2],
-    1: [3],
-    2: [3],
-    3: [4],
-    4: []
-}
+n, m = map(int, input("Введите количество вершин и рёбер: ").split())
+graph = {i: [] for i in range(n)}
+for _ in range(m):
+    u, v = map(int, input("Введите ребро (u v): ").split())
+    graph[u].append(v)
 
-n = 5
 result = find_universal_source(graph, n)
 if result != -1:
     print(f"Вершина {result} достигает все остальные")

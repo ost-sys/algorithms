@@ -1,3 +1,9 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     lines = f.read().splitlines()
+#     arr = list(map(int, lines[0].split()))
+#     target = int(lines[1])
+
 def binary_search(arr, target):
     left, right = 0, len(arr) - 1
 
@@ -12,6 +18,6 @@ def binary_search(arr, target):
 
     return -1
 
-arr = [3, 7, 11, 18, 25, 42, 56, 78]
-print(binary_search(arr, 25))
-print(binary_search(arr, 10))
+arr = list(map(int, input("Введите отсортированный массив через пробел: ").split()))
+target = int(input("Введите искомый элемент: "))
+print(binary_search(arr, target))

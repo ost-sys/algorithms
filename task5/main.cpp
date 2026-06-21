@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 int countReachable(vector<vector<int>>& graph, int start, int n) {
@@ -27,14 +29,26 @@ int countReachable(vector<vector<int>>& graph, int start, int n) {
 }
 
 int main() {
-    int n = 5;
-    vector<vector<int>> graph(n);
+    int n, m;
+    cout << "Введите количество вершин и рёбер: ";
+    cin >> n >> m;
 
-    graph[0] = {1, 2};
-    graph[1] = {3};
-    graph[2] = {3};
-    graph[3] = {4};
-    graph[4] = {};
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // f >> n >> m;
+    // vector<vector<int>> graph(n);
+    // for (int i = 0; i < m; i++) {
+    //     int u, v; f >> u >> v;
+    //     graph[u].push_back(v);
+    // }
+
+    vector<vector<int>> graph(n);
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cout << "Введите ребро (u v): ";
+        cin >> u >> v;
+        graph[u].push_back(v);
+    }
 
     for (int v = 0; v < n; v++) {
         if (countReachable(graph, v, n) == n) {

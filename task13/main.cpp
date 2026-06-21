@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 int binarySearch(vector<int>& arr, int target) {
@@ -19,8 +21,25 @@ int binarySearch(vector<int>& arr, int target) {
 }
 
 int main() {
-    vector<int> arr = {3, 7, 11, 18, 25, 42, 56, 78};
-    cout << binarySearch(arr, 25) << endl;
-    cout << binarySearch(arr, 10) << endl;
+    int n;
+    cout << "Введите количество элементов (отсортированный массив): ";
+    cin >> n;
+
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // f >> n;
+    // vector<int> arr(n);
+    // for (int& x : arr) f >> x;
+    // int target; f >> target;
+
+    vector<int> arr(n);
+    cout << "Введите элементы: ";
+    for (int& x : arr) cin >> x;
+
+    int target;
+    cout << "Введите искомый элемент: ";
+    cin >> target;
+
+    cout << binarySearch(arr, target) << endl;
     return 0;
 }

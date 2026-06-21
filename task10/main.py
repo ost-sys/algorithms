@@ -1,3 +1,7 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     arr = list(map(int, f.read().split()))
+
 def bubble_sort(arr):
     n = len(arr)
     for i in range(n):
@@ -6,5 +10,5 @@ def bubble_sort(arr):
                 arr[j], arr[j - 1] = arr[j - 1], arr[j]
     return arr
 
-arr = [64, 25, 12, 22, 11]
+arr = list(map(int, input("Введите элементы через пробел: ").split()))
 print(bubble_sort(arr))

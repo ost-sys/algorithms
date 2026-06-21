@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 void bubbleSort(vector<int>& arr) {
@@ -14,7 +16,19 @@ void bubbleSort(vector<int>& arr) {
 }
 
 int main() {
-    vector<int> arr = {64, 25, 12, 22, 11};
+    int n;
+    cout << "Введите количество элементов: ";
+    cin >> n;
+
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // vector<int> arr(n);
+    // for (int& x : arr) f >> x;
+
+    vector<int> arr(n);
+    cout << "Введите элементы: ";
+    for (int& x : arr) cin >> x;
+
     bubbleSort(arr);
     for (int x : arr) cout << x << " ";
     return 0;

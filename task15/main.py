@@ -1,3 +1,9 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     lines = f.read().splitlines()
+#     text = lines[0]
+#     pattern = lines[1]
+
 def compute_prefix(pattern):
     m = len(pattern)
     d = [0] * m
@@ -31,6 +37,6 @@ def kmp_search(text, pattern):
 
     return results
 
-text = "ABABABABCABABABABC"
-pattern = "ABABC"
+text = input("Введите текст: ")
+pattern = input("Введите образец: ")
 print("Вхождения на позициях:", kmp_search(text, pattern))

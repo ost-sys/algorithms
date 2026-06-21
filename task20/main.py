@@ -42,6 +42,13 @@ def natural_merge_sort(data):
     return data
 
 if __name__ == '__main__':
-    arr = [3, 5, 1, 2, 8, 6, 7, 4]
+    # Ручной ввод массива
+    raw = input("Введите числа через пробел: ")
+    arr = list(map(int, raw.split()))
+
+    # Вариант чтения из файла:
+    # with open('input.txt', 'r') as f:
+    #     arr = list(map(int, f.read().split()))
+
     print("До:    ", arr)
     print("После: ", natural_merge_sort(arr))

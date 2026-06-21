@@ -1,3 +1,9 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     lines = f.read().splitlines()
+#     text = lines[0]
+#     pattern = lines[1]
+
 def bm_search(text, pattern):
     n = len(text)
     m = len(pattern)
@@ -22,6 +28,6 @@ def bm_search(text, pattern):
 
     return results
 
-text = "ABABDABACDABABCABAB"
-pattern = "ABABC"
+text = input("Введите текст: ")
+pattern = input("Введите образец: ")
 print("Вхождения на позициях:", bm_search(text, pattern))

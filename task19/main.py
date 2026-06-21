@@ -67,6 +67,13 @@ def straight_merge_sort_external(input_file, output_file):
             os.remove(f)
 
 if __name__ == '__main__':
-    write_sequence('input.txt', [5, 3, 8, 1, 9, 2, 7, 4, 6])
+    # Ручной ввод последовательности
+    raw = input("Введите числа через пробел: ")
+    data = list(map(int, raw.split()))
+
+    # Вариант чтения из файла:
+    # data = read_sequence('input.txt')
+
+    write_sequence('input.txt', data)
     straight_merge_sort_external('input.txt', 'output.txt')
     print("Результат:", read_sequence('output.txt'))

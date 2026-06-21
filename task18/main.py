@@ -1,3 +1,12 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     lines = f.read().splitlines()
+#     for line in lines:
+#         parts = line.split()
+#         if parts[0] == "insert": ht.insert(int(parts[1]), parts[2])
+#         elif parts[0] == "search": print(ht.search(int(parts[1])))
+#         elif parts[0] == "delete": ht.delete(int(parts[1]))
+
 class HashTable:
     def __init__(self, size=10):
         self.size = size
@@ -26,9 +35,17 @@ class HashTable:
         self.table[idx] = [p for p in self.table[idx] if p[0] != key]
 
 ht = HashTable()
-ht.insert(10, "Alice")
-ht.insert(20, "Bob")
-ht.insert(30, "Charlie")
-print(ht.search(20))
-ht.delete(20)
-print(ht.search(20))
+while True:
+    cmd = input("Команда (insert/search/delete/exit): ").strip()
+    if cmd == "exit":
+        break
+    elif cmd == "insert":
+        key = int(input("Ключ (число): "))
+        value = input("Значение: ")
+        ht.insert(key, value)
+    elif cmd == "search":
+        key = int(input("Ключ (число): "))
+        print(ht.search(key))
+    elif cmd == "delete":
+        key = int(input("Ключ (число): "))
+        ht.delete(key)

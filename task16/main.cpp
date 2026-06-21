@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 vector<int> bmSearch(string& text, string& pattern) {
@@ -32,8 +34,18 @@ vector<int> bmSearch(string& text, string& pattern) {
 }
 
 int main() {
-    string text = "ABABDABACDABABCABAB";
-    string pattern = "ABABC";
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // string text, pattern;
+    // getline(f, text);
+    // getline(f, pattern);
+
+    string text, pattern;
+    cout << "Введите текст: ";
+    getline(cin, text);
+    cout << "Введите образец: ";
+    getline(cin, pattern);
+
     vector<int> positions = bmSearch(text, pattern);
 
     cout << "Вхождения на позициях: ";

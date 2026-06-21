@@ -62,10 +62,33 @@ class HashTable:
                 print(f"  [{i}] ключ={slot[0]}, значение={slot[1]}")
 
 if __name__ == '__main__':
-    ht = HashTable(size=11)
-    for k, v in [(5, 'a'), (16, 'b'), (27, 'c'), (3, 'd'), (14, 'e')]:
-        ht.insert(k, v)
-    ht.display()
-    print("Поиск 16:", ht.search(16))
-    ht.delete(16)
-    print("После удаления 16, поиск 27:", ht.search(27))
+    size = int(input("Введите размер таблицы: "))
+    ht = HashTable(size=size)
+
+    # Вариант чтения из файла (пары key value, одна на строку):
+    # with open('input.txt', 'r') as f:
+    #     for line in f:
+    #         parts = line.split()
+    #         if len(parts) == 2:
+    #             ht.insert(int(parts[0]), parts[1])
+
+    print("Команды: insert <key> <value> | search <key> | delete <key> | display | exit")
+    while True:
+        cmd = input("> ").strip().split()
+        if not cmd:
+            continue
+        action = cmd[0].lower()
+        if action == 'insert' and len(cmd) == 3:
+            ht.insert(int(cmd[1]), cmd[2])
+        elif action == 'search' and len(cmd) == 2:
+            result = ht.search(int(cmd[1]))
+            print("Найдено:", result if result is not None else "не найдено")
+        elif action == 'delete' and len(cmd) == 2:
+            ok = ht.delete(int(cmd[1]))
+            print("Удалено" if ok else "Ключ не найден")
+        elif action == 'display':
+            ht.display()
+        elif action == 'exit':
+            break
+        else:
+            print("Неизвестная команда")

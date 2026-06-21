@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 void bfs(vector<vector<int>>& graph, int start, int n) {
@@ -25,16 +27,35 @@ void bfs(vector<vector<int>>& graph, int start, int n) {
 }
 
 int main() {
-    int n = 5;
+    int n, m;
+    cout << "Введите количество вершин и рёбер: ";
+    cin >> n >> m;
+
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // f >> n >> m;
+    // vector<vector<int>> graph(n);
+    // for (int i = 0; i < m; i++) {
+    //     int u, v; f >> u >> v;
+    //     graph[u].push_back(v);
+    //     graph[v].push_back(u);
+    // }
+    // int start; f >> start;
+
     vector<vector<int>> graph(n);
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cout << "Введите ребро (u v): ";
+        cin >> u >> v;
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
 
-    graph[0] = {1, 2};
-    graph[1] = {0, 3, 4};
-    graph[2] = {0};
-    graph[3] = {1};
-    graph[4] = {1};
+    int start;
+    cout << "Начальная вершина: ";
+    cin >> start;
 
-    bfs(graph, 0, n);
+    bfs(graph, start, n);
 
     return 0;
 }

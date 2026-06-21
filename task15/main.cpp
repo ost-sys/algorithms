@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 vector<int> computePrefix(string& pattern) {
@@ -42,8 +44,18 @@ vector<int> kmpSearch(string& text, string& pattern) {
 }
 
 int main() {
-    string text = "ABABABABCABABABABC";
-    string pattern = "ABABC";
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // string text, pattern;
+    // getline(f, text);
+    // getline(f, pattern);
+
+    string text, pattern;
+    cout << "Введите текст: ";
+    getline(cin, text);
+    cout << "Введите образец: ";
+    getline(cin, pattern);
+
     vector<int> positions = kmpSearch(text, pattern);
 
     cout << "Вхождения на позициях: ";

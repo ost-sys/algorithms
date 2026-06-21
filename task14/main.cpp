@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 vector<int> naiveSearch(string& text, string& pattern) {
@@ -24,8 +26,18 @@ vector<int> naiveSearch(string& text, string& pattern) {
 }
 
 int main() {
-    string text = "АВАВАВАВАС";
-    string pattern = "АВАВАС";
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // string text, pattern;
+    // getline(f, text);
+    // getline(f, pattern);
+
+    string text, pattern;
+    cout << "Введите текст: ";
+    getline(cin, text);
+    cout << "Введите образец: ";
+    getline(cin, pattern);
+
     vector<int> positions = naiveSearch(text, pattern);
 
     cout << "Вхождения на позициях: ";

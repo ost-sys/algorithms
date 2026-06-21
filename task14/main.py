@@ -1,3 +1,9 @@
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     lines = f.read().splitlines()
+#     text = lines[0]
+#     pattern = lines[1]
+
 def naive_search(text, pattern):
     n = len(text)
     m = len(pattern)
@@ -14,7 +20,7 @@ def naive_search(text, pattern):
 
     return results
 
-text = "АВАВАВАВАС"
-pattern = "АВАВАС"
+text = input("Введите текст: ")
+pattern = input("Введите образец: ")
 positions = naive_search(text, pattern)
 print("Вхождения на позициях:", positions)

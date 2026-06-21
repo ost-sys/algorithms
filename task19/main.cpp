@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <climits>
+#include <sstream>
 
 void writeFile(const std::string& filename, const std::vector<int>& data) {
     std::ofstream f(filename);
@@ -88,15 +89,26 @@ void straightMergeSortExternal(const std::string& inputFile,
 }
 
 int main() {
-    std::ofstream in("input.txt");
-    in << "5 3 8 1 9 2 7 4 6";
-    in.close();
+    // Ручной ввод последовательности
+    std::cout << "Введите числа через пробел: ";
+    std::string line;
+    std::getline(std::cin, line);
+    std::istringstream iss(line);
+    std::vector<int> data;
+    int x;
+    while (iss >> x) data.push_back(x);
+
+    // Вариант чтения из файла:
+    // #include <fstream>
+    // std::vector<int> data = readFile("input.txt");
+
+    writeFile("input.txt", data);
 
     straightMergeSortExternal("input.txt", "output.txt");
 
     std::vector<int> result = readFile("output.txt");
     std::cout << "Результат: ";
-    for (int x : result) std::cout << x << ' ';
+    for (int v : result) std::cout << v << ' ';
     std::cout << std::endl;
     return 0;
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -85,15 +86,51 @@ public:
 };
 
 int main() {
-    HashTable ht(11);
-    ht.insert(5, "a"); ht.insert(16, "b"); ht.insert(27, "c");
-    ht.insert(3, "d"); ht.insert(14, "e");
-    ht.display();
+    int size;
+    cout << "Введите размер таблицы: ";
+    cin >> size;
+    HashTable ht(size);
 
-    string res = ht.search(16);
-    cout << "Поиск 16: " << (res != "" ? res : "не найдено") << '\n';
-    ht.remove(16);
-    res = ht.search(27);
-    cout << "После удаления 16, поиск 27: " << (res != "" ? res : "не найдено") << '\n';
+    // Вариант чтения из файла (пары key value, одна на строку):
+    // #include <fstream>
+    // ifstream fin("input.txt");
+    // int k; string v;
+    // while (fin >> k >> v) ht.insert(k, v);
+
+    cin.ignore(); // съесть остаток строки после числа
+    cout << "Команды: insert <key> <value> | search <key> | delete <key> | display | exit\n";
+
+    string line;
+    while (true) {
+        cout << "> ";
+        if (!getline(cin, line)) break;
+        istringstream iss(line);
+        string action;
+        iss >> action;
+        if (action.empty()) continue;
+
+        if (action == "insert") {
+            int key; string value;
+            if (iss >> key >> value) ht.insert(key, value);
+        } else if (action == "search") {
+            int key;
+            if (iss >> key) {
+                string res = ht.search(key);
+                cout << "Найдено: " << (res != "" ? res : "не найдено") << '\n';
+            }
+        } else if (action == "delete") {
+            int key;
+            if (iss >> key) {
+                bool ok = ht.remove(key);
+                cout << (ok ? "Удалено" : "Ключ не найден") << '\n';
+            }
+        } else if (action == "display") {
+            ht.display();
+        } else if (action == "exit") {
+            break;
+        } else {
+            cout << "Неизвестная команда\n";
+        }
+    }
     return 0;
 }

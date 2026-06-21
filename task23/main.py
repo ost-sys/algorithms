@@ -14,6 +14,13 @@ def shell_sort(arr):
     return arr
 
 if __name__ == '__main__':
-    arr = [5, 3, 8, 1, 9, 2, 7, 4, 6]
+    # Ручной ввод массива
+    raw = input("Введите числа через пробел: ")
+    arr = list(map(int, raw.split()))
+
+    # Вариант чтения из файла:
+    # with open('input.txt', 'r') as f:
+    #     arr = list(map(int, f.read().split()))
+
     print("До:    ", arr)
     print("После: ", shell_sort(arr))

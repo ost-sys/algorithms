@@ -24,5 +24,9 @@ def merge(left, right):
     result.extend(right[j:])
     return result
 
-arr = [38, 27, 43, 3, 9, 82, 10]
+# Вариант с файлом:
+# with open("input.txt") as f:
+#     arr = list(map(int, f.read().split()))
+
+arr = list(map(int, input("Введите элементы через пробел: ").split()))
 print(merge_sort(arr))

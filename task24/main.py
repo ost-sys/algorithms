@@ -37,9 +37,17 @@ def print_tree(node, level=0, prefix="Корень: "):
             print(" " * ((level + 1) * 4) + "П: None")
 
 if __name__ == '__main__':
+    # Ручной ввод числа вершин
     n = int(input("Введите число вершин (1–10): "))
     n = max(1, min(10, n))
     values = list(range(1, n + 1))
+
+    # Вариант чтения из файла:
+    # with open('input.txt', 'r') as f:
+    #     n = int(f.read().strip())
+    # n = max(1, min(10, n))
+    # values = list(range(1, n + 1))
+
     root = build_balanced(values, 0, n - 1)
     print_tree(root)
     print("Обход in-order:", inorder(root))

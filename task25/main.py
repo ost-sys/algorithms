@@ -33,9 +33,16 @@ def rabin_karp(text, pattern):
     return results
 
 if __name__ == '__main__':
-    text    = "ABCABCDABABCDABCDABDE"
-    pattern = "ABCD"
-    result  = rabin_karp(text, pattern)
+    # Ручной ввод текста и образца
+    text    = input("Введите текст: ")
+    pattern = input("Введите образец: ")
+
+    # Вариант чтения из файла (первая строка — текст, вторая — образец):
+    # with open('input.txt', 'r') as f:
+    #     text = f.readline().strip()
+    #     pattern = f.readline().strip()
+
+    result = rabin_karp(text, pattern)
     print(f"Текст:   {text}")
     print(f"Образец: {pattern}")
     print(f"Найдено на позициях: {result}")

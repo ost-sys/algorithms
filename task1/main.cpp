@@ -29,7 +29,19 @@ void mergeSort(vector<int>& arr, int left, int right) {
 }
 
 int main() {
-    vector<int> arr = {38, 27, 43, 3, 9, 82, 10};
+    int n;
+    cout << "Введите количество элементов: ";
+    cin >> n;
+
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // vector<int> arr(n);
+    // for (int& x : arr) f >> x;
+
+    vector<int> arr(n);
+    cout << "Введите элементы: ";
+    for (int& x : arr) cin >> x;
+
     mergeSort(arr, 0, arr.size() - 1);
     for (int x : arr) cout << x << " ";
     return 0;

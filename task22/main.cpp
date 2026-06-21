@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
+#include <string>
 
 void shakerSort(std::vector<int>& arr) {
     int left = 0, right = (int)arr.size() - 1;
@@ -18,15 +20,30 @@ void shakerSort(std::vector<int>& arr) {
 }
 
 int main() {
-    std::vector<int> arr = {5, 3, 8, 1, 9, 2, 7, 4, 6};
+    // Ручной ввод массива
+    std::cout << "Введите числа через пробел: ";
+    std::string line;
+    std::getline(std::cin, line);
+    std::istringstream iss(line);
+    std::vector<int> arr;
+    int x;
+    while (iss >> x) arr.push_back(x);
+
+    // Вариант чтения из файла:
+    // #include <fstream>
+    // std::ifstream fin("input.txt");
+    // std::vector<int> arr;
+    // int x;
+    // while (fin >> x) arr.push_back(x);
+
     std::cout << "До:    ";
-    for (int x : arr) std::cout << x << ' ';
+    for (int v : arr) std::cout << v << ' ';
     std::cout << '\n';
 
     shakerSort(arr);
 
     std::cout << "После: ";
-    for (int x : arr) std::cout << x << ' ';
+    for (int v : arr) std::cout << v << ' ';
     std::cout << '\n';
     return 0;
 }

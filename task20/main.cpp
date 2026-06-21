@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -50,14 +52,29 @@ vector<int> naturalMergeSort(vector<int> data) {
 }
 
 int main() {
-    vector<int> arr = {3, 5, 1, 2, 8, 6, 7, 4};
+    // Ручной ввод массива
+    cout << "Введите числа через пробел: ";
+    string line;
+    getline(cin, line);
+    istringstream iss(line);
+    vector<int> arr;
+    int x;
+    while (iss >> x) arr.push_back(x);
+
+    // Вариант чтения из файла:
+    // #include <fstream>
+    // ifstream fin("input.txt");
+    // vector<int> arr;
+    // int x;
+    // while (fin >> x) arr.push_back(x);
+
     cout << "До:    ";
-    for (int x : arr) cout << x << ' ';
+    for (int v : arr) cout << v << ' ';
     cout << '\n';
 
     vector<int> sorted = naturalMergeSort(arr);
     cout << "После: ";
-    for (int x : sorted) cout << x << ' ';
+    for (int v : sorted) cout << v << ' ';
     cout << '\n';
     return 0;
 }

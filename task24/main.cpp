@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
+#include <string>
 
 struct Node {
     int value;
@@ -48,6 +50,7 @@ void freeTree(Node* node) {
 }
 
 int main() {
+    // Ручной ввод числа вершин
     int n;
     std::cout << "Введите число вершин (1–10): ";
     std::cin >> n;
@@ -56,13 +59,22 @@ int main() {
     std::vector<int> values(n);
     for (int i = 0; i < n; ++i) values[i] = i + 1;
 
+    // Вариант чтения из файла:
+    // #include <fstream>
+    // std::ifstream fin("input.txt");
+    // int n;
+    // fin >> n;
+    // n = std::max(1, std::min(10, n));
+    // std::vector<int> values(n);
+    // for (int i = 0; i < n; ++i) values[i] = i + 1;
+
     Node* root = buildBalanced(values, 0, n - 1);
     printTree(root);
 
     std::vector<int> result;
     inorder(root, result);
     std::cout << "Обход in-order: ";
-    for (int x : result) std::cout << x << ' ';
+    for (int v : result) std::cout << v << ' ';
     std::cout << '\n';
 
     freeTree(root);

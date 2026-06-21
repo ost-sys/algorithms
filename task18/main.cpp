@@ -2,6 +2,8 @@
 #include <vector>
 #include <list>
 #include <string>
+// Вариант с файлом:
+// #include <fstream>
 using namespace std;
 
 class HashTable {
@@ -44,12 +46,35 @@ public:
 };
 
 int main() {
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // string cmd;
+    // while (f >> cmd) {
+    //     if (cmd == "insert") { int k; string v; f >> k >> v; ht.insert(k, v); }
+    //     else if (cmd == "search") { int k; f >> k; cout << ht.search(k) << endl; }
+    //     else if (cmd == "delete") { int k; f >> k; ht.remove(k); }
+    // }
+
     HashTable ht;
-    ht.insert(10, "Alice");
-    ht.insert(20, "Bob");
-    ht.insert(30, "Charlie");
-    cout << ht.search(20) << endl;
-    ht.remove(20);
-    cout << ht.search(20) << endl;
+    string cmd;
+    while (true) {
+        cout << "Команда (insert/search/delete/exit): ";
+        cin >> cmd;
+        if (cmd == "exit") break;
+        else if (cmd == "insert") {
+            int key; string value;
+            cout << "Ключ (число): "; cin >> key;
+            cout << "Значение: "; cin >> value;
+            ht.insert(key, value);
+        } else if (cmd == "search") {
+            int key;
+            cout << "Ключ (число): "; cin >> key;
+            cout << ht.search(key) << endl;
+        } else if (cmd == "delete") {
+            int key;
+            cout << "Ключ (число): "; cin >> key;
+            ht.remove(key);
+        }
+    }
     return 0;
 }

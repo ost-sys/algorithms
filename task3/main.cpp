@@ -13,16 +13,32 @@ void dfs(vector<vector<int>>& graph, int node, vector<bool>& visited) {
 }
 
 int main() {
-    int n = 5;
+    int n, m;
+    cout << "Введите количество вершин и рёбер: ";
+    cin >> n >> m;
+
+    // Вариант с файлом:
+    // ifstream f("input.txt");
+    // f >> n >> m;
+    // vector<vector<int>> graph(n);
+    // for (int i = 0; i < m; i++) {
+    //     int u, v; f >> u >> v;
+    //     graph[u].push_back(v); // ориентированный
+    // }
+    // int start; f >> start;
+
     vector<vector<int>> graph(n);
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cout << "Введите ребро (u v): ";
+        cin >> u >> v;
+        graph[u].push_back(v); // ориентированный — только в одну сторону
+    }
 
-    graph[0] = {1, 2};
-    graph[1] = {3};
-    graph[2] = {3};
-    graph[3] = {4};
-    graph[4] = {};
+    int start;
+    cout << "Начальная вершина: ";
+    cin >> start;
 
-    int start = 0;
     vector<bool> visited(n, false);
     dfs(graph, start, visited);
 
